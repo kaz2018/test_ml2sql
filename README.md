@@ -1,33 +1,65 @@
 # NL2SQL Sample Project
 
-自然言語をSQLクエリに変換するシンプルなサンプルプロジェクトです。
+- 自然言語をSQLクエリに変換するシンプルなサンプルプロジェクトです。
+- サンプルデータ（商品、顧客、注文）を含みます。
 
 ## 機能
 
-- 自然言語クエリをSQLに変換
-- Google Vertex AI (Gemini)を使用した高精度な変換
-- SQLiteデータベースでのクエリ実行
-- サンプルデータ（商品、顧客、注文）を含む
+- Google Vertex AI (Gemini 2.5 Flash)で自然言語をSQLクエリに変換
+- PythonでSQLiteデータベースに対してSQLを実行し、データを取得
+
+## 前提条件
+
+### Google Cloud / Vertex AI環境
+このプロジェクトを実行する前に、以下の環境を事前に準備してください：
+
+1. **Google Cloudプロジェクトの作成**
+   - [Google Cloud Console](https://console.cloud.google.com/)でプロジェクトを作成
+   - Vertex AI APIを有効化
+   - 課金設定を有効化（Gemini 2.5 Flash利用のため）
+
+2. **認証の設定**
+   - Google Cloud SDKをインストール
+   - `gcloud auth application-default login`で認証
+
+3. **Vertex AI Gemini APIへのアクセス確認**
+   - プロジェクトでVertex AI Gemini APIが利用可能であることを確認
+
+### 開発環境
+- Python 3.12以上
+- [uv](https://docs.astral.sh/uv/)（Pythonパッケージマネージャー）
 
 ## セットアップ
 
-1. 依存関係のインストール:
+1. **リポジトリをクローン**:
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/YOUR_USERNAME/nl2sql-sample.git
+cd nl2sql-sample
 ```
 
-2. Google Cloud認証の設定:
+2. **仮想環境の作成と依存関係のインストール**:
 ```bash
-# Google Cloud SDKをインストール
-gcloud auth application-default login
+# uvで仮想環境を作成
+uv venv
 
-# プロジェクトIDを環境変数に設定
-export GOOGLE_CLOUD_PROJECT="your-project-id"
+# 仮想環境をアクティベート
+source .venv/bin/activate  # macOS/Linux
+# または
+.venv\Scripts\activate     # Windows
+
+# 依存関係をインストール
+uv pip install -r requirements.txt
 ```
 
-または、`.env`ファイルを作成:
+3. **環境変数の設定**:
+`.env`ファイルを作成:
+```bash
+cp .env.example .env
 ```
-GOOGLE_CLOUD_PROJECT=your-project-id
+
+`.env`ファイルを編集してプロジェクトIDを設定:
+```
+GOOGLE_CLOUD_PROJECT='your-actual-project-id'
 ```
 
 ## 使用方法

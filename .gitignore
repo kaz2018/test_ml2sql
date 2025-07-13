@@ -17,7 +17,7 @@ __pycache__/
 .Python
 
 # Database files
-*.db
+# *.db -- 今回はダミーデータなのでアップロードしてもOK。本番データの場合はコメントアウトする。
 *.sqlite
 *.sqlite3
 
